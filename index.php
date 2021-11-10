@@ -25,14 +25,15 @@
                     $allPosts = mysqli_query($success, $query);
 
                     while($post = mysqli_fetch_assoc($allPosts)){
+                        $id = $post['id'];
                         $title = $post['title'];
                         $author = $post['author'];
                         $date = $post['date'];
-                        $content = $post['content'];
+                        $content = substr($post['content'],0,100) ;
                         $image = $post['image'];
                         ?>
                         <h2>
-                            <a href="#"><?php echo $title; ?></a>
+                            <a href="post.php?id=<?php echo $id; ?>"><?php echo $title; ?></a>
                         </h2>
                         <p class="lead">
                             by <a href="index.php"><?php echo $author; ?></a>

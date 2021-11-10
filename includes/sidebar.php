@@ -33,8 +33,9 @@
                     $allCategories = mysqli_query($success, $query);
 
                     while ($category = mysqli_fetch_assoc($allCategories)) {
+                        $id = $category['id'];
                         $title = $category['title'];
-                        echo "<li><a href='#'>{$title}</a></li>";
+                        echo "<li><a href='category.php?id={$id}'>{$title}</a></li>";
                     }
                     ?>
                 </ul>

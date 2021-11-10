@@ -7,14 +7,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">WevPattern Admin</a>
+        <a class="navbar-brand" href="../index.php">WevPattern Admin</a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
         <li><a href="../index.php">Home</a></li>
     
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Ahmed Emad <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
                     <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
@@ -36,10 +36,10 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#posts"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="posts" class="collapse">
                     <li>
-                        <a href="#">Veiw Posts</a>
+                        <a href="posts.php">Veiw Posts</a>
                     </li>
                     <li>
-                        <a href="#">Add Post</a>
+                        <a href="posts.php?source=addPost">Add Post</a>
                     </li>
                 </ul>
             </li>

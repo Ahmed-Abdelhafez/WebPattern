@@ -136,3 +136,78 @@ function deletePost()
         header("Location: posts.php");
     }
 }
+
+
+
+function displayComments()
+{
+    global $success;
+    $query = "SELECT * FROM comments";
+    $allComments = mysqli_query($success, $query);
+    while ($comment = mysqli_fetch_assoc($allComments)) {
+        $id = $comment['id'];
+        $author = $comment['author'];
+        $postId = $comment['post_id'];
+        $date = $comment['date'];
+        $content = $comment['content'];
+        $status = $comment['status'];
+        $email = $comment['email'];
+    ?>
+        <tr>
+            <td><?php echo $id ?></td>
+            <td><?php echo $author ?></td>
+            <td><?php echo $content ?></td>
+            <td><?php echo $email ?></td>
+
+            <?php
+            $query = "SELECT * FROM posts WHERE id='{$postId}'";
+            $post = mysqli_query($success, $query);
+            $post = mysqli_fetch_assoc($post);
+            $postTitle = $post['title'];
+            ?>
+
+            <td><a href="../post.php?id=<?php echo $postId ?>"><?php echo $postTitle ?></a></td>
+            <td><?php echo $status ?></td>
+            <td><?php echo $date ?></td>
+            <td><a href="comments.php?approve=<?php echo $id ?>">Approve</a></td>
+            <td><a href="comments.php?unapprove=<?php echo $id ?>">Unapprove</a></td>
+            <td><a href="comments.php?delete=<?php echo $id ?>">Delete</a></td>
+        </tr>
+<?php
+    }
+}
+
+function deleteComment()
+{
+    global $success;
+    if (isset($_GET['delete'])) {
+        $id = $_GET['delete'];
+        $query = "DELETE FROM comments WHERE id = '{$id}'";
+        mysqli_query($success, $query);
+        header("Location: comments.php");
+    }
+}
+
+function approveComment()
+{
+    global $success;
+    if (isset($_GET['approve'])) {
+        $id = $_GET['approve'];
+        $query = "UPDATE comments SET status='Approved' WHERE id = '{$id}'";
+        $changeStatus = mysqli_query($success, $query);
+        if (!$changeStatus) {
+            die("Status Updating Failed!" . mysqli_error($success));
+        }
+        header("Location: comments.php");
+    }
+    if (isset($_GET['unapprove'])) {
+        $id = $_GET['unapprove'];
+        $query = "UPDATE comments SET status='Unapproved' WHERE id = '{$id}'";
+        $changeStatus = mysqli_query($success, $query);
+        if (!$changeStatus) {
+            die("Status Updating Failed!" . mysqli_error($success));
+        }
+        header("Location: comments.php");
+    }
+    
+}

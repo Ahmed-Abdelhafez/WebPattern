@@ -5,7 +5,6 @@ if (isset($_POST['createPost'])) {
     $author = $_POST['author'];
     $category = $_POST['post_category'];
     $date = date('d-m-y');
-    $commentsCount = 1;
     $status = $_POST['status'];
     $tags = $_POST['tags'];
     $content = $_POST['content'];
@@ -15,9 +14,9 @@ if (isset($_POST['createPost'])) {
     move_uploaded_file($imageTmp, "../images/$image");
 
     $query = "INSERT INTO posts
-                (category_id, title, author, date, image, content, tags, comments_count, status) 
+                (category_id, title, author, date, image, content, tags, status) 
             VALUES
-                ({$category},'{$title}','{$author}',now(),'{$image}','{$content}','{$tags}','{$commentsCount}','{$status}' ) ";
+                ({$category},'{$title}','{$author}',now(),'{$image}','{$content}','{$tags}','{$status}' ) ";
 
     $createPostQuery = mysqli_query($success, $query);
 

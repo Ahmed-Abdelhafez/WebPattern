@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
     if ($inputPassword !== $password) {
         echo "<script>alert('The Username or Password isn\'t correct!');
         window.location.href='../index.php';</script>";
-    } elseif($role === "Admin") {
+    } else {
 
         $_SESSION['username']=$inputUsername;
         $_SESSION['firstname']=$firstname;
@@ -36,9 +36,10 @@ if (isset($_POST['login'])) {
         $_SESSION['role']=$role;
 
         header("Location: ../admin");
-    } else {
-        header("Location: ../index.php");
     }
+    // else {
+    //     header("Location: ../index.php");
+    // }
 
 
 }

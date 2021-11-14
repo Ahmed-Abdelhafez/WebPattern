@@ -211,3 +211,42 @@ function approveComment()
     }
     
 }
+
+function displayUsers()
+{
+    global $success;
+    $query = "SELECT * FROM users";
+    $allUsers = mysqli_query($success, $query);
+    while ($user = mysqli_fetch_assoc($allUsers)) {
+        $id = $user['id'];
+        $username = $user['username'];
+        $role = $user['role'];
+        $lastname = $user['lastname'];
+        $fristname = $user['fristname'];
+        $email = $user['email'];
+
+    ?>
+        <tr>
+            <td><?php echo $id ?></td>
+            <td><?php echo $username ?></td>
+            <td><?php echo $fristname ?></td>
+            <td><?php echo $lastname ?></td>
+            <td><?php echo $email ?></td>
+            <td><?php echo $role ?></td>
+            <td><a href="users.php?source=editUser&edit=<?php echo $id ?>">Edit</a></td>
+            <td><a href="users.php?delete=<?php echo $id ?>">Delete</a></td>
+        </tr>
+<?php
+    }
+}
+
+function deleteUser()
+{
+    global $success;
+    if (isset($_GET['delete'])) {
+        $id = $_GET['delete'];
+        $query = "DELETE FROM users WHERE id = '{$id}'";
+        mysqli_query($success, $query);
+        header("Location: users.php");
+    }
+}

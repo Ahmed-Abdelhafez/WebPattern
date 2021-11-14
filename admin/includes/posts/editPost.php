@@ -6,7 +6,7 @@ if (isset($_GET['edit'])) {
     $post = mysqli_fetch_object($post);
     $title = $post->title;
     $author = $post->author;
-    $category = $post->category_id;
+    $category_id = $post->category_id;
     $date = $post->date;
     $commentsCount = $post->comments_count;
     $content = $post->content;
@@ -67,7 +67,16 @@ if (isset($_POST['editPost'])) {
         <label>Choose Post Category</label>
         <select class="form-control" name="post_category" id="post_category">
             <?php
+                $query = "SELECT * FROM categories WHERE id='{$category_id}'";
+                $selectCategory = mysqli_query($success, $query);
+                if(!$selectCategory){
+                    die("Query Failed! ". mysqli_error($success));
+                }
+                while ( $row = mysqli_fetch_assoc($selectCategory) )  {
+                    $categoryTitle = $row['title'];
 
+                echo "<option value='{$category_id}'>{$categoryTitle}</option>";
+                }
                 // Declare query string for Update:
                 $query = "SELECT * FROM categories";
                 // Perform query:
@@ -77,7 +86,9 @@ if (isset($_POST['editPost'])) {
                 while ( $row = mysqli_fetch_assoc($select_categories) )  {
                     $cat_id = $row['id'];
                     $cat_title = $row['title'];
+                    if($cat_id != $category_id){
                     echo "<option value='{$cat_id}'>{$cat_title}</option>";
+                    }
                 } // end while
             ?>
         </select>

@@ -58,7 +58,7 @@
                 $query = "INSERT INTO comments 
                             (post_id, author, email, content, status, date) 
                             VALUES 
-                            ($postId, '{$author}', '{$email}', '{$content}', 'unaprroved',  now())";
+                            ($postId, '{$author}', '{$email}', '{$content}', 'Unapproved',  now())";
 
                 $createComment = mysqli_query($success, $query);
 

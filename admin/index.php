@@ -144,12 +144,16 @@
             </div>
             <!-- /.row -->
 
-            <?php 
-            
+            <?php
+
+            $query = "SELECT * FROM posts WHERE status='Published'";
+            $publishedPosts = mysqli_query($success, $query);
+            $publishedPostsCount = mysqli_num_rows($publishedPosts);
+
             $query = "SELECT * FROM posts WHERE status='Draft'";
             $draftPosts = mysqli_query($success, $query);
             $draftPostsCount = mysqli_num_rows($draftPosts);
-            
+
             $query = "SELECT * FROM comments WHERE status='Unapproved'";
             $unapprovedCommetns = mysqli_query($success, $query);
             $unapprovedCommetnsCount = mysqli_num_rows($unapprovedCommetns);
@@ -171,8 +175,8 @@
                             ['Element', 'Count'],
 
                             <?php
-                            $elements = ['Categories', 'Active Posts', 'Draft Posts', 'Users', 'Subscriber Users', 'Comments', 'Unapproved Commetns'];
-                            $counts = [$categoriesCount, $postsCount, $draftPostsCount, $usersCount, $subscriberUsersCount, $commentsCount, $unapprovedCommetnsCount];
+                            $elements = ['Categories', 'Posts', 'Active Posts', 'Draft Posts', 'Users', 'Subscriber Users', 'Comments', 'Unapproved Commetns'];
+                            $counts = [$categoriesCount, $postsCount, $publishedPostsCount, $draftPostsCount, $usersCount, $subscriberUsersCount, $commentsCount, $unapprovedCommetnsCount];
                             for ($i = 0; $i < count($elements); $i++) {
                                 echo "['{$elements[$i]}', {$counts[$i]}],";
                             }

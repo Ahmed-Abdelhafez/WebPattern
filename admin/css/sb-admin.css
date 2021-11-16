@@ -50,7 +50,6 @@ body {
 
 .top-nav>li {
     display: inline-block;
-    float: left;
 }
 
 .top-nav>li>a {
@@ -221,4 +220,12 @@ ul.alert-dropdown {
 
 .panel-yellow a:hover {
     color: #df8a13;
+}
+
+#bulkOption{
+    padding: 0;
+}
+
+#bulkOptions{
+    padding: 0;
 }

@@ -100,9 +100,10 @@ function displayPosts()
         $image = $post['image'];
     ?>
         <tr>
+            <td><input type="checkbox" class="checkBoxes" name="checkBoxs[]" value="<?php echo $id; ?>"></td>
             <td><?php echo $id ?></td>
             <td><?php echo $author ?></td>
-            <td><?php echo $title ?></td>
+            <td><a href="../post.php?id=<?php echo $id; ?>"><?php echo $title ?></a></td>
 
             <?php
 

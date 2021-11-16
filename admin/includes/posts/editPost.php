@@ -51,7 +51,7 @@ if (isset($_POST['editPost'])) {
     if (!$updatePost) {
         die("Post Updating Failed!" . mysqli_error($success));
     }
-    header("Location: posts.php");
+    header("Location: ../post.php?id={$id}");
 }
 ?>
 
@@ -67,29 +67,29 @@ if (isset($_POST['editPost'])) {
         <label>Choose Post Category</label>
         <select class="form-control" name="post_category" id="post_category">
             <?php
-                $query = "SELECT * FROM categories WHERE id='{$category_id}'";
-                $selectCategory = mysqli_query($success, $query);
-                if(!$selectCategory){
-                    die("Query Failed! ". mysqli_error($success));
-                }
-                while ( $row = mysqli_fetch_assoc($selectCategory) )  {
-                    $categoryTitle = $row['title'];
+            $query = "SELECT * FROM categories WHERE id='{$category_id}'";
+            $selectCategory = mysqli_query($success, $query);
+            if (!$selectCategory) {
+                die("Query Failed! " . mysqli_error($success));
+            }
+            while ($row = mysqli_fetch_assoc($selectCategory)) {
+                $categoryTitle = $row['title'];
 
                 echo "<option value='{$category_id}'>{$categoryTitle}</option>";
-                }
-                // Declare query string for Update:
-                $query = "SELECT * FROM categories";
-                // Perform query:
-                $select_categories = mysqli_query($success, $query);
-                // Confirm that $select_categories query is successful:
-               
-                while ( $row = mysqli_fetch_assoc($select_categories) )  {
-                    $cat_id = $row['id'];
-                    $cat_title = $row['title'];
-                    if($cat_id != $category_id){
+            }
+            // Declare query string for Update:
+            $query = "SELECT * FROM categories";
+            // Perform query:
+            $select_categories = mysqli_query($success, $query);
+            // Confirm that $select_categories query is successful:
+
+            while ($row = mysqli_fetch_assoc($select_categories)) {
+                $cat_id = $row['id'];
+                $cat_title = $row['title'];
+                if ($cat_id != $category_id) {
                     echo "<option value='{$cat_id}'>{$cat_title}</option>";
-                    }
-                } // end while
+                }
+            } // end while
             ?>
         </select>
     </div>
@@ -101,7 +101,14 @@ if (isset($_POST['editPost'])) {
 
     <div class="form-group">
         <label for="status">Post Status</label>
-        <input type="text" class="form-control" name="status" value="<?php echo $status; ?>">
+        <select class="form-control" name="status" id="">
+            <option value="<?php echo $status; ?>"><?php echo $status; ?></option>
+            <?php if ($status == "Draft") { ?>
+                <option value="Published">Published</option>
+            <?php } else { ?>
+                <option value="Draft">Draft</option>
+            <?php } ?>
+        </select>
     </div>
 
     <div class="form-group">

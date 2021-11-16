@@ -46,6 +46,7 @@
                 <img class="img-responsive" src="images/<?php echo $image; ?>" alt="">
                 <hr>
                 <p><?php echo $content; ?></p>
+                <a href="admin/posts.php?source=editPost&edit=<?php echo $id; ?>">Edit Post</a>
 
             <?php
             }
@@ -85,17 +86,17 @@
 
                     <div class="form-group">
                         <label for="Author">Author</label>
-                        <input type="text" class="form-control" name="author">
+                        <input type="text" class="form-control" name="author" required>
                     </div>
 
                     <div class="form-group">
                         <label for="Email">Email</label>
-                        <input type="email" class="form-control" name="email">
+                        <input type="email" class="form-control" name="email" required>
                     </div>
 
                     <div class="form-group">
                         <label for="comment">Your Comment</label>
-                        <textarea name="content" class="form-control" rows="3"></textarea>
+                        <textarea name="content" class="form-control" rows="3" required></textarea>
                     </div>
                     <button type="submit" name="createComment" class="btn btn-primary">Submit</button>
                 </form>

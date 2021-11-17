@@ -21,29 +21,29 @@ if (isset($_POST['login'])) {
 
     while ($user = mysqli_fetch_assoc($selectUser)) {
         $password = $user['password'];
-        $firstname = $user['fristname'];
+        $firstname = $user['firstname'];
         $lastname = $user['lastname'];
         $role = $user['role'];
     }
-    if ($inputPassword !== $password) {
-        echo "<script>alert('The Username or Password isn\'t correct!');
-        window.location.href='../index.php';</script>";
-    } else {
 
+    if (password_verify($inputPassword, $password)) {
+        
         $_SESSION['username']=$inputUsername;
         $_SESSION['firstname']=$firstname;
         $_SESSION['lastname']=$lastname;
         $_SESSION['role']=$role;
 
         header("Location: ../admin");
+    } else {
+        
+        echo "<script>alert('The Username or Password isn\'t correct!');
+        window.location.href='../index.php';</script>";
     }
     // else {
     //     header("Location: ../index.php");
     // }
 
-
 }
-
 
 
 ?>

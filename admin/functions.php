@@ -223,19 +223,19 @@ function displayUsers()
         $username = $user['username'];
         $role = $user['role'];
         $lastname = $user['lastname'];
-        $fristname = $user['fristname'];
+        $firstname = $user['firstname'];
         $email = $user['email'];
 
     ?>
         <tr>
             <td><?php echo $id ?></td>
             <td><?php echo $username ?></td>
-            <td><?php echo $fristname ?></td>
+            <td><?php echo $firstname ?></td>
             <td><?php echo $lastname ?></td>
             <td><?php echo $email ?></td>
             <td><?php echo $role ?></td>
             <td><a href="users.php?source=editUser&edit=<?php echo $id ?>">Edit</a></td>
-            <td><a href="users.php?delete=<?php echo $id ?>">Delete</a></td>
+            <td><a onclick="javascript: return confirm('Are you sure want to delete <?php echo $username ?> ?')" href="users.php?delete=<?php echo $id ?>">Delete</a></td>
         </tr>
 <?php
     }

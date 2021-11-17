@@ -7,7 +7,7 @@ if (isset($_GET['edit'])) {
     $username = $user->username;
     $role = $user->role;
     $lastname = $user->lastname;
-    $fristname = $user->fristname;
+    $firstname = $user->firstname;
     $password = $user->password;
     $image = $user->image;
     $email = $user->email;
@@ -17,7 +17,7 @@ if (isset($_POST['editUser'])) {
     $username = $_POST['username'];
     $role = $_POST['role'];
     $lastname = $_POST['lastname'];
-    $fristname = $_POST['fristname'];
+    $firstname = $_POST['firstname'];
     $password = $_POST['password'];
     $image = $_FILES['image']['name'];
     $imageTmp = $_FILES['image']['tmp_name'];
@@ -25,9 +25,11 @@ if (isset($_POST['editUser'])) {
 
     move_uploaded_file($imageTmp, "../images/$image");
 
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
     $query = "UPDATE users SET
                 username = '{$username}', 
-                fristname='{$fristname}', 
+                firstname='{$firstname}', 
                 lastname='{$lastname}', 
                 email='{$email}', 
                 image='{$image}', 
@@ -49,8 +51,8 @@ if (isset($_POST['editUser'])) {
 <form action="" method="POST" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="fristname">Frist Name</label>
-        <input type="text" class="form-control" name="fristname"  value="<?php echo $fristname; ?>">
+        <label for="firstname">Frist Name</label>
+        <input type="text" class="form-control" name="firstname"  value="<?php echo $firstname; ?>">
     </div>
 
     <div class="form-group">

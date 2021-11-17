@@ -14,27 +14,13 @@
         <div class="col-md-8">
 
             <?php
-            $postPerPage = 10;
-            if(isset($_GET['page'])){
-                $page = $_GET['page'];
-                $pageStrat = ($page * $postPerPage) - $postPerPage;
-            } else {
-                $pageStrat = 0;
+            if(isset($_GET['author'])){
+                $author = $_GET['author'];
             }
             
-
-            $query = "SELECT COUNT(*) AS postsCount FROM posts WHERE status='Published'";
-            $postsCount = mysqli_query($success, $query);
-            $postsCount = mysqli_fetch_object($postsCount);
-            $postsCount = $postsCount->postsCount;
-            if(!$postsCount){
-                die("Query Failed " . mysqli_error($success));
-            }
-            $count = ceil($postsCount/$postPerPage);
-
-            $query = "SELECT * FROM posts WHERE status='Published' LIMIT $pageStrat, $postPerPage";
-            $allPosts = mysqli_query($success, $query);
-            if (mysqli_num_rows($allPosts)==0) {
+            $query = "SELECT * FROM posts WHERE status='Published' AND author='{$author}'";
+            $allAuthorPosts = mysqli_query($success, $query);
+            if (mysqli_num_rows($allAuthorPosts)==0) {
                 die("<h1>No posts Here</h1>");
             }
             ?>
@@ -46,11 +32,10 @@
 
             <!-- Blog Posts -->
             <?php
-            $allPosts = mysqli_query($success, $query);
-            while ($post = mysqli_fetch_assoc($allPosts)) {
+            $allAuthorPosts = mysqli_query($success, $query);
+            while ($post = mysqli_fetch_assoc($allAuthorPosts)) {
                 $id = $post['id'];
                 $title = $post['title'];
-                $author = $post['author'];
                 $date = $post['date'];
                 $content = substr($post['content'], 0, 100);
                 $image = $post['image'];
@@ -84,19 +69,6 @@
                 <li class="previous">
                     <a href="#">&larr; Older</a>
                 </li>
-                <?php 
-                
-                for($i=1; $i <= $count; $i++ ){
-                    if($i == $page){
-                        echo "<li><a class='active_link' href='index.php?page={$i}'>{$i}</a></li>";
-                    } else {
-                        echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                    }
-
-                    
-                }
-                
-                ?>
                 <li class="next">
                     <a href="#">Newer &rarr;</a>
                 </li>

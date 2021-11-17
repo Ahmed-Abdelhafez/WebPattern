@@ -86,7 +86,7 @@ function deleteCategory()
 function displayPosts()
 {
     global $success;
-    $query = "SELECT * FROM posts";
+    $query = "SELECT * FROM posts ORDER BY id DESC";
     $allPosts = mysqli_query($success, $query);
     while ($post = mysqli_fetch_assoc($allPosts)) {
         $title = $post['title'];
@@ -98,6 +98,7 @@ function displayPosts()
         $status = $post['status'];
         $tags = $post['tags'];
         $image = $post['image'];
+        $viewsCount = $post['views_count']
     ?>
         <tr>
             <td><input type="checkbox" class="checkBoxes" name="checkBoxs[]" value="<?php echo $id; ?>"></td>
@@ -120,6 +121,7 @@ function displayPosts()
             <td><?php echo $tags ?></td>
             <td><?php echo $commentsCount ?></td>
             <td><?php echo $date ?></td>
+            <td><?php echo $viewsCount ?></td>
             <td><a href="posts.php?source=editPost&edit=<?php echo $id ?>">Edit</a></td>
             <td><a href="posts.php?delete=<?php echo $id ?>">Delete</a></td>
         </tr>
@@ -161,7 +163,7 @@ function displayComments()
             <td><?php echo $email ?></td>
 
             <?php
-            $query = "SELECT * FROM posts WHERE id='{$postId}'";
+            $query = "SELECT * FROM posts WHERE id={$postId}";
             $post = mysqli_query($success, $query);
             $post = mysqli_fetch_assoc($post);
             $postTitle = $post['title'];

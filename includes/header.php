@@ -17,6 +17,8 @@
     <!-- Custom CSS -->
     <link href="css/blog-home.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="css/styles.css">
+
     <!-- include summernote css -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 

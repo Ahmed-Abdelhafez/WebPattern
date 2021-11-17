@@ -57,6 +57,9 @@ if (isset($_POST['checkBoxs'])) {
                 <th>Tags</th>
                 <th>Comments</th>
                 <th>Date</th>
+                <th>Views</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>

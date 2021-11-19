@@ -1,5 +1,45 @@
 <?php
 
+function onlineUsers()
+{
+
+    if (isset($_GET['onlineUsers'])) {
+        global $success;
+        if(!$success){
+            session_start();
+            include("../includes/db.php");
+            $session = session_id();
+            $time = time();
+            $timeOut = $time - 30;
+    
+            $query = "SELECT COUNT(*) AS onlineUsers FROM online_users WHERE session = '{$session}'";
+            $onlineUsers = mysqli_query($success, $query);
+            if (!$onlineUsers) {
+                die('Query Failed ' . mysqli_error($success));
+            }
+            $onlineUsers = mysqli_fetch_object($onlineUsers);
+            $onlineUsers = $onlineUsers->onlineUsers;
+    
+            if ($onlineUsers == 0) {
+                $onlineUsers = mysqli_query($success, "INSERT INTO online_users (session , time) VALUES('$session', '$time')");
+                if (!$onlineUsers) {
+                    die('Query Failed ' . mysqli_error($success));
+                }
+            } else {
+                mysqli_query($success, "UPDATE online_users SET time='$time' WHERE session='$session'");
+            }
+            $query = "SELECT COUNT(*) AS onlineUsers FROM online_users WHERE time > '{$timeOut}'";
+            $onlineUsers = mysqli_query($success, $query);
+            $onlineUsers = mysqli_fetch_object($onlineUsers);
+            echo $onlineUsers->onlineUsers;
+        }
+
+       
+    }
+}
+
+onlineUsers();
+
 function addCategory()
 {
     global $success;
@@ -125,7 +165,7 @@ function displayPosts()
             <td><a href="posts.php?source=editPost&edit=<?php echo $id ?>">Edit</a></td>
             <td><a href="posts.php?delete=<?php echo $id ?>">Delete</a></td>
         </tr>
-<?php
+    <?php
     }
 }
 
@@ -176,7 +216,7 @@ function displayComments()
             <td><a href="comments.php?unapprove=<?php echo $id ?>">Unapprove</a></td>
             <td><a href="comments.php?delete=<?php echo $id ?>">Delete</a></td>
         </tr>
-<?php
+    <?php
     }
 }
 
@@ -212,7 +252,6 @@ function approveComment()
         }
         header("Location: comments.php");
     }
-    
 }
 
 function displayUsers()
